@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wen.dao.FlowerDao">
+    <!-- resultMap最终还是要将结果映射到pojo上，type就是指定映射到哪一个pojo -->
+    <resultMap id="flower" type="com.wen.pojo.Flower">
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在pojo中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id property="id" column="flower_id"></id>
+        <result property="name" column="flower_name"></result>
+        <result property="varieties" column="flower_varieties"></result>
+        <result property="img" column="flower_img"></result>
+        <result property="title" column="flower_title"></result>
+        <result property="oldprice" column="flower_oldprice"></result>
+        <result property="price" column="flower_price"></result>
+        <result property="star" column="flower_star"></result>
+        <result property="store" column="flower_store"></result>
+        <result property="count" column="flower_count"></result>
+        <result property="updatetime" column="update_time"></result>
+        <result property="createtime" column="create_time"></result>
+    </resultMap>
+
+    <select id="FindAllFlower" resultMap="flower">
+        select * from flower;
+    </select>
+    <select id="getImgById" resultType="String">
+        select flower_img from flower where flower_id=#{id}
+    </select>
+    <select id="getFlowerById" resultMap="flower">
+        select * from flower where flower_id=#{id}
+    </select>
+    <select id="getPriceById" resultType="java.math.BigDecimal">
+        select flower_price from flower where flower_id = #{flowerid}
+    </select>
+    <update id="updateSellAdd">
+        update flower set sell = sell+#{sell},flower_count=#{count} where flower_id =#{flowerid}
+    </update>
+    <select id="BestSeller" resultMap="flower">
+        select * from flower order by sell desc limit 4
+    </select>
+
+    <select id="findAllFlowerIdByStoreId" resultType="List">
+        select flower_id from flower where flower_count = #{id}
+    </select>
+
+    <select id="getFlowerByStore" resultMap="flower">
+        select  flower_id,update_time,flower_star,flower_name,flower_img,flower_title,flower_price,flower_count from flower where flower_store= #{store_id}
+    </select>
+
+    <select id="getBusinessIdByFlowerId" resultType="String">
+        select user_id from business where id =(select flower_store from flower where flower_id= #{id});
+    </select>
+
+
+</mapper>

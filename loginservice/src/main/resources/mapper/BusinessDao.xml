@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wen.gradua.dao.BusinessDao">
+    <select id="findAllBusinessMessage" resultType="business">
+        select id,user_id,img,store,email,tel,create_time from business where user_id = #{user_id};
+    </select>
+    <insert id="createStore">
+        insert into business (user_id,img,store,email,tel,create_time) values (#{user_id},#{img},#{store},#{email},#{tel},#{create_time});
+    </insert>
+    <update id="updateStore">
+        update business set img= #{img},store = #{store},email=#{email},tel=#{tel} where user_id = #{user_id}
+    </update>
+</mapper>

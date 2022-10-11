@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sendmail.dao.MailDao">
+    <update id="updateCount">
+        update mail_send set count = #{count} where msgid=#{msgid}
+    </update>
+</mapper>

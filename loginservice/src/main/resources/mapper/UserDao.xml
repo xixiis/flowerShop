@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wen.gradua.dao.UserDao">
+    <resultMap id="user" type="user">
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在pojo中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="email" column="email"></result>
+        <result property="img" column="img"></result>
+        <result property="address" column="address"></result>
+        <result property="tel" column="tel"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="del" column="del"></result>
+        <result property="perms" column="perms"></result>
+    </resultMap>
+    <select id="findIdByUsername" resultType="String">
+        select id from user where username = #{username} union all
+         select id from user where email=#{username} limit 1
+    </select>
+
+    <select id="findDelByUsername" resultType="int">
+        select del from user where username=#{username} union all
+         select del from user where email=#{username} limit 1
+    </select>
+
+    <select id="findIdByEmail" resultType="String">
+        select id from user where email = #{email} limit 1
+    </select>
+
+    <select id="findUserByEmail" resultType="String">
+        select username from user where email = #{email} limit 1
+    </select>
+
+    <select id="findByUsername" resultType="User">
+        select username,password from user where username =#{username} limit 1
+    </select>
+
+    <select id="findUsernamePasswordByEmail" resultType="User">
+        select username,password from user where email=#{email} limit 1
+    </select>
+
+    <insert id="insertUser" parameterType="User">
+        insert into user(id,username,password,email,img,update_time,create_time) values(#{id},#{username},#{password},#{email},#{img},#{updateTime},#{createTime})
+    </insert>
+
+    <select id="findImgByUsername" parameterType="String" resultType="String">
+        select img from user where username = #{username} limit 1
+    </select>
+
+    <update id="updatePasswordByUsername">
+        update user set password=#{password},update_time=#{updatetime} where username = #{username}
+    </update>
+
+    <select id="getUserById" resultMap="user">
+        select id,username,password,img,email,tel,address,create_time from user where id =#{id} limit 1;
+    </select>
+
+    <update id="updateUserById">
+        update user set username=#{username},address=#{address},email=#{email},tel=#{tel} where id=#{id}
+    </update>
+
+    <select id="findPeremByuserId" resultType="Integer">
+        select perms from user where id=#{user_id};
+    </select>
+
+    <update id="SetPeremByuserId" >
+        update user set perms = #{perms} where id=#{user_id};
+    </update>
+
+    <select id="getALLUser" resultMap="user">
+        select id,username,password,img,email,tel,address,create_time from user;
+    </select>
+
+    <select id="getALLUserINBusiness" resultMap="user">
+        select id,username,password,img,email,tel,address,create_time from user where perms != 0;
+    </select>
+</mapper>

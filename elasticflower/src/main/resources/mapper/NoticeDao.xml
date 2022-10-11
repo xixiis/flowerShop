@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wen.dao.NoticeDao">
+    <insert id="writeNotice">
+        insert into notice(notice,create_time) value(#{notice},#{create_time})
+    </insert>
+    <select id="readNotice" resultType="notice">
+        select id,notice,create_time,del from notice;
+    </select>
+    <select id="readNoticeByID" resultType="notice">
+        select id,notice,create_time,del from notice where id = #{id};
+    </select>
+    <update id="updateNotice">
+        update notice set notice=#{notice},create_time=#{create_time} where id= #{id}
+    </update>
+    <update id="dalNotice">
+        update notice set del=1 where id=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wen.dao.BusinessDao">
+    <select id="findAllBusinessMessage" resultType="business">
+        select id,user_id,img,store,email,tel,create_time from business where user_id = #{user_id};
+    </select>
+    <update id="updatePadding">
+        update business set padding=#{padding} where id= #{id}
+    </update>
+    <select id="findPaddingByUserID" resultType="String">
+        select padding from business where user_id = #{id}
+    </select>
+    <select id="findPaddingByID">
+        select padding from business where id = #{id}
+    </select>
+
+    <select id="findSuccessByUserID">
+        select success from business where user_id = #{id}
+    </select>
+</mapper>

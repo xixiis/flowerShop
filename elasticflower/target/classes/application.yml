@@ -1,0 +1,15 @@
+server:
+  port: 7000
+spring:
+  application:
+    name: email
+  datasource:
+    url: jdbc:mysql://121.196.109.178:3306/graduate?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: Wenhao1223
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  type-aliases-package: com.wen.pojo
+  mapper-locations: classpath:mapper/*.xml

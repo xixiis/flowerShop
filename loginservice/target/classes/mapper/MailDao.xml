@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wen.gradua.dao.MailDao">
+    <!-- resultMap最终还是要将结果映射到pojo上，type就是指定映射到哪一个pojo -->
+    <resultMap id="msg" type="mailSend">
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在pojo中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id property="id" column="id"></id>
+        <result property="msgId" column="msgid"></result>
+        <result property="status" column="status"></result>
+        <result property="random" column="random"></result>
+        <result property="email" column="email"></result>
+        <result property="routekey" column="routekey"></result>
+        <result property="count" column="count"></result>
+        <result property="tryTime" column="tryTime"></result>
+        <result property="createTime" column="createTime"></result>
+        <result property="updateTime" column="updateTime"></result>
+    </resultMap>
+    <insert id="saveMail">
+        insert into mail_send(msgid,status,random,email,routekey,count,tryTime,createTime,updateTime) value(#{msgId},#{status},#{random},#{email},#{routekey},#{count},#{tryTime},#{createTime},#{updateTime});
+    </insert>
+    <update id="updateMailStatus">
+        update mail_send set status=#{status} where msgid=#{msgid}
+    </update>
+    <select id="existRandomByEmail" resultType="Integer">
+        select random from mail_send where email=#{email} limit 1
+    </select>
+    <select id="existMail" resultType="Integer">
+        select id from mail_send where msgid=#{msgid} limit 1
+    </select>
+    <update id="updateMailRandom">
+        update mail_send set random=#{random} where msgid = #{msgid}
+    </update>
+    <select id="fondFaultMsg" resultMap="msg">
+        select id,random,msgid,updateTime,count,tryTime from mail_send where status = #{status}
+    </select>
+    <update id="saveCount">
+        update mail_send set count=#{count},tryTime=#{tryTime} where msgid = #{msgid}
+    </update>
+</mapper>

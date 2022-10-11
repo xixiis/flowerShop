@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wen.dao.OrderInformationDao">
+    <select id="findByOrderId" resultType="orderInformation">
+        select * from orderinformation where order_id=#{order_id}
+    </select>
+    <insert id="insertUserOrderInformation">
+        insert into orderinformation(order_id,user_id,address,tel,time,remarks,create_time,state)
+          values (#{order_id},#{user_id},#{address},#{tel},#{time},#{remarks},#{create_time},#{state})
+    </insert>
+    <update id="delByOrderId">
+        delete from orderinformation where order_id=#{order_id} and state = 0
+    </update>
+    <update id="updateOrderStatePaySuccess">
+        update orderinformation set state = 1 where user_id=#{userid} and state = 0
+    </update>
+</mapper>
+
+
+

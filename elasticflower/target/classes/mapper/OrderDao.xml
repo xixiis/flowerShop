@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wen.dao.OrderDao">
+    <!-- resultMap最终还是要将结果映射到pojo上，type就是指定映射到哪一个pojo -->
+    <resultMap id="order" type="com.wen.pojo.Order">
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在pojo中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id property="id" column="id"></id>
+        <result property="order_id" column="order_id"></result>
+        <result property="user_id" column="user_id"></result>
+        <result property="flowercount" column="flowercount"></result>
+        <result property="total_price" column="total_price"></result>
+        <result property="create_time" column="create_time"></result>
+        <result property="del" column="del"></result>
+
+    </resultMap>
+    <select id="findOrderContinueByUserId" resultMap="order">
+        select id,order_id,user_id,flowercount,total_price,create_time,del from orders where user_id = #{userid} and del = 0
+    </select>
+    <select id="findOrderByUserId" resultMap="order">
+        select id,order_id,user_id,flowercount,total_price,create_time,del from orders where user_id = #{userid} and del != 0
+    </select>
+    <insert id="addOrder">
+        insert into orders(order_id,user_id,flowercount,total_price,create_time) values(#{order_id},#{user_id},#{flowercount},#{total_price},#{create_time})
+    </insert>
+    <update id="clearOrderById">
+        update orders set del = 3 where user_id=#{userid} and del = 0
+    </update>
+    <update id="updateOrder">
+        update orders set flowercount = #{flowercount},total_price =#{total_price} where user_id=#{user_id} and del = 0
+    </update>
+    <update id="updateOrderStatePaySuccess">
+        update orders set del = 1 where user_id=#{userid} and del = 0
+    </update>
+    <select id="findOrderPaymentByUserId" resultMap="order">
+        select id,order_id,user_id,flowercount,total_price,create_time from orders where user_id = #{userid} and del = 1
+    </select>
+    <select id="getALLOrder" resultMap="order">
+        select id,order_id,user_id,flowercount,total_price,create_time from orders;
+    </select>
+</mapper>

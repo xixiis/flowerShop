@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wen.dao.index.IndexDao">
+    <insert id="addflower">
+        insert into adminIndex(address,flag,bigflag,smallflag,title,img,url) values(#{address},#{flag},#{bigflag},#{smallflag},#{title},#{img},#{url})
+    </insert>
+    <select id="getAll" resultType="com.wen.pojo.Index">
+        select id,address,flag,bigflag,smallflag,title,img,url from adminIndex;
+    </select>
+    <delete id="delById">
+        delete from adminIndex where id = #{id}
+    </delete>
+    <select id="findImgByid" resultType="String">
+        select img from adminIndex where id = #{id} limit 1
+    </select>
+    <select id="getById" resultType="com.wen.pojo.Index">
+        select id,address,flag,bigflag,smallflag,title,img,url from adminIndex where id=#{id} limit 1
+    </select>
+    <select id="updateIndex" parameterType="com.wen.pojo.Index">
+        update adminIndex set address=#{address},flag=#{flag},bigflag=#{bigflag},smallflag=#{smallflag},title=#{title},img=#{img},url=#{url} where id=#{id}
+    </select>
+
+
+    <resultMap id="menu" type="com.wen.pojo.Menu">
+        <id column="id" property="id"></id>
+        <result property="name" column="name"></result>
+        <result property="title" column="title"></result>
+        <result property="to" column="url"></result>
+        <result property="from" column="ascription"></result>
+    </resultMap>
+    <insert id="addMenuIndex">
+        insert into Menu(name,title,ascription,url) values(#{name},#{title},#{from},#{to})
+    </insert>
+    <select id="getAllMenu" resultMap="menu">
+        select id,name,title,ascription,url from Menu
+    </select>
+    <select id="getMenuById" resultMap="menu">
+        select id,name,title,ascription,url from Menu where id=#{id}
+    </select>
+</mapper>

@@ -1,0 +1,11 @@
+D:\Flower_Shop\mailservice\src\main\java\com\sendmail\utils\mailQueryUtils.java
+D:\Flower_Shop\mailservice\src\main\java\com\sendmail\service\SendService.java
+D:\Flower_Shop\mailservice\src\main\java\com\sendmail\pojo\EmailModel.java
+D:\Flower_Shop\mailservice\src\main\java\com\sendmail\utils\MailConstants.java
+D:\Flower_Shop\mailservice\src\main\java\com\sendmail\utils\MailSendUtils.java
+D:\Flower_Shop\mailservice\src\main\java\com\sendmail\pojo\MailSend.java
+D:\Flower_Shop\mailservice\src\main\java\com\sendmail\controller\EmailController.java
+D:\Flower_Shop\mailservice\src\main\java\com\mailServiceApplication.java
+D:\Flower_Shop\mailservice\src\main\java\com\sendmail\dao\MailDao.java
+D:\Flower_Shop\mailservice\src\main\java\com\sendmail\service\impl\SendServiceimpl.java
+D:\Flower_Shop\mailservice\src\main\java\com\sendmail\config\DeadMsgConfig.java
